@@ -17,7 +17,7 @@ setup(name='ofxstatement-russian',
       description=("Russian banks plugins for ofxstatement"),
       long_description=long_description,
       license="GPLv3",
-      keywords=["ofxstatement", "russian"],
+      keywords=["ofxstatement", "russian", "avangard"],
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Programming Language :: Python :: 3',
@@ -32,7 +32,7 @@ setup(name='ofxstatement-russian',
       namespace_packages=["ofxstatement", "ofxstatement.plugins"],
       entry_points={
           'ofxstatement':
-          []
+          ['avangard = ofxstatement.plugins.avangard:AvangardPlugin']
           },
       install_requires=['ofxstatement'],
       include_package_data=True,

@@ -11,10 +11,28 @@ structure, that is then formatted into an OFX file.
 
 Supported banks:
 
-None
+* Avangard Bank (http://avangard.ru) plugin 'avangard'
 
 .. _ofxstatement: https://github.com/kedder/ofxstatement
 .. _ofxstatement-russian: https://github.com/gerasiov/ofxstatement-russian
+
+
+Plugin configuration parameters
+===============================
+
+avangard
+--------
+
+bank
+        Bank id
+        (default is 'Avangard')
+
+account
+        Account id
+
+currency
+        Currency
+        (default is 'RUB')
 
 
 Authors
