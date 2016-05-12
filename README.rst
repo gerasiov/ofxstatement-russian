@@ -12,6 +12,7 @@ structure, that is then formatted into an OFX file.
 Supported banks:
 
 * Avangard Bank (http://avangard.ru) plugin 'avangard'
+* Tinkoff Bank (http://tinkoff.ru) plugin 'tinkoff'
 
 .. _ofxstatement: https://github.com/kedder/ofxstatement
 .. _ofxstatement-russian: https://github.com/gerasiov/ofxstatement-russian
@@ -34,6 +35,19 @@ currency
         Currency
         (default is 'RUB')
 
+tinkoff
+-------
+
+bank
+        Bank id
+        (default is 'Tinkoff')
+
+account
+        Account id
+
+currency
+        Cyrrency
+        (if not set, will be extracted from the first record)
 
 Authors
 =======
