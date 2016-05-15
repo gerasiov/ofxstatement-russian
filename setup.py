@@ -17,7 +17,7 @@ setup(name='ofxstatement-russian',
       description=("Russian banks plugins for ofxstatement"),
       long_description=long_description,
       license="GPLv3",
-      keywords=["ofxstatement", "russian", "avangard", "tinkoff"],
+      keywords=["ofxstatement", "russian", "avangard", "tinkoff", "sberbank"],
       classifiers=[
           'Development Status :: 3 - Alpha',
           'Programming Language :: Python :: 3',
@@ -35,6 +35,7 @@ setup(name='ofxstatement-russian',
                 [
                 'avangard = ofxstatement.plugins.avangard:AvangardPlugin',
                 'tinkoff = ofxstatement.plugins.tinkoff:TinkoffPlugin',
+                'sberbank = ofxstatement.plugins.sberbank:SberBankPlugin',
                 ]
           },
       install_requires=['ofxstatement'],

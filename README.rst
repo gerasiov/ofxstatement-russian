@@ -13,6 +13,7 @@ Supported banks:
 
 * Avangard Bank (http://avangard.ru) plugin 'avangard'
 * Tinkoff Bank (http://tinkoff.ru) plugin 'tinkoff'
+* SberBank (http://sbrf.ru) plugin 'sberbank'
 
 .. _ofxstatement: https://github.com/kedder/ofxstatement
 .. _ofxstatement-russian: https://github.com/gerasiov/ofxstatement-russian
@@ -48,6 +49,22 @@ account
 currency
         Cyrrency
         (if not set, will be extracted from the first record)
+
+sberbank
+--------
+
+bank
+        Bank id
+        (default is 'SberBank')
+
+account
+        Account id
+        (if not set, will be extracted from the statement)
+
+currency
+        Cyrrency
+        (if not set, will be extracted from the statement)
+
 
 Authors
 =======
