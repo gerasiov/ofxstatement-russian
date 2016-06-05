@@ -156,6 +156,10 @@ class SberBankStatementParser(StatementParser):
                 u"^(.*)\s*(\d{2}[А-Я]{3})\s+(\d{2}[А-Я]{3}\d{2})\s+\d{6}\s+(.*)\s\w{3}\s+\d*\.\d{2}\s+(\d*\.\d{2})(CR)?\s*$",
                 None,
                 self.extractTransaction)
+        state.addMatcher(
+                u"^(.*)\s*(\d{2}[А-Я]{3})\s+(\d{2}[А-Я]{3}\d{2})\s+\d{6}\s+(КОМИССИЯ)\s+(\d*\.\d{2})(CR)?\s*$",
+                None,
+                self.extractTransaction)
         state.addMatcher(u".*ИТОГО ПО.*")
         state.addMatcher(u"^(.+)\s*$",
                 None,
