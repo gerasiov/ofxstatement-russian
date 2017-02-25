@@ -60,6 +60,9 @@ class TinkoffStatementParser(StatementParser):
     def __init__(self, fin):
         self.statement = statement.Statement()
         self.fin = fin
+        # Skip 1st row with column's headers
+        self.fin.readline()
+        self.cur_record = 1
 
     def split_records(self):
         return csv.DictReader(self.fin, delimiter=t_delimiter, fieldnames=t_fieldnames)
