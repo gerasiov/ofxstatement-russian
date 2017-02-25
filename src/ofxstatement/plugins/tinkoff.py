@@ -25,7 +25,7 @@ import csv
 t_delimiter=';'
 t_time_format='%d.%m.%Y %H:%M:%S'
 t_encoding='cp1251'
-t_fieldnames=['op_time', 'tr_time', 'card', 'status', 'op_amount', 'op_currency', 'amount', 'currency', 'class', 'MCC', 'description']
+t_fieldnames=['op_time', 'tr_time', 'card', 'status', 'op_amount', 'op_currency', 'amount', 'currency', 'cashback', 'class', 'MCC', 'description', 'bonus']
 t_type_map={
     u"Капитализация": 'DIV',
     u"Вознаграждение за операции покупок": 'DIV',
