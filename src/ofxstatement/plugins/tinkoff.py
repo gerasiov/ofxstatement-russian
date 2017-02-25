@@ -25,7 +25,7 @@ import csv
 t_delimiter=';'
 t_time_format='%d.%m.%Y %H:%M:%S'
 t_encoding='cp1251'
-t_fieldnames=['op_time', 'tr_time', 'card', 'status', 'op_amount', 'op_currency', 'amount', 'currency', 'cashback', 'class', 'MCC', 'description', 'bonus']
+t_fieldnames=['op_time', 'tr_time', 'card', 'status', 'op_amount', 'op_currency', 'amount', 'currency', 'cashback', 'category', 'MCC', 'description', 'bonus']
 t_type_map={
     u"Капитализация": 'DIV',
     u"Вознаграждение за операции покупок": 'DIV',
@@ -87,7 +87,7 @@ class TinkoffStatementParser(StatementParser):
 
         transaction.trntype = parse_type(line['description'], transaction.amount)
 
-        transaction.memo = "%s: %s"%(line['class'], line['description'])
+        transaction.memo = "%s: %s"%(line['category'], line['description'])
 
         if line['MCC']:
             transaction.memo = "%s, %s"%(transaction.memo, line['MCC'])
