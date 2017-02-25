@@ -77,7 +77,7 @@ class TinkoffStatementParser(StatementParser):
         transaction = statement.StatementLine()
 
         if not line['status'] == 'OK':
-            print("Transaction %s status is %s."%(line['op_time'], line['status']))
+            print("Notice: Skipping line %d: Transaction time %s status is %s."%(self.cur_record, line['op_time'], line['status']))
             return None
 
         if not self.statement.currency:
