@@ -63,7 +63,7 @@ account
         Account id
 
 currency
-        Cyrrency
+        Currency
         (if not set, will be extracted from the first record)
 
 sberbank
@@ -78,7 +78,7 @@ account
         (if not set, will be extracted from the statement)
 
 currency
-        Cyrrency
+        Currency
         (if not set, will be extracted from the statement)
 
 
