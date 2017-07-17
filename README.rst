@@ -14,6 +14,7 @@ Supported banks:
 * Avangard Bank (http://avangard.ru) plugin 'avangard'
 * Tinkoff Bank (http://tinkoff.ru) plugin 'tinkoff'
 * SberBank (http://sbrf.ru) plugin 'sberbank'
+* AlfaBank (https://www.alfabank.ru) plugin 'alfabank'
 
 
 Avangard
@@ -33,6 +34,12 @@ TXT statement (available via "request statement by e-mail" function) for debit c
 
 .. _ofxstatement: https://github.com/kedder/ofxstatement
 .. _ofxstatement-russian: https://github.com/gerasiov/ofxstatement-russian
+
+
+AlfaBank
+-------
+
+CSV statement for current account are supported
 
 
 Plugin configuration parameters
@@ -81,6 +88,28 @@ currency
         Currency
         (if not set, will be extracted from the statement)
 
+alfabank
+--------
+
+bank
+        Bank id
+        (default is 'Alfabank')
+
+account
+        Account id
+        (if not set, will be extracted from the statement)
+
+currency
+        Currency
+        (if not set, will be extracted from the statement)
+
+user_date
+        if 'true' then transaction date will be set to the date when transaction is created (so called user date)
+        rather then record date. User date is extracted in description if it is present there
+
+file_encoding
+        cp1251 by default. No need to change in regular usage (download statement, then convert),
+        but could be handy in case of some file processing that involves encoding change
 
 Authors
 =======
