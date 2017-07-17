@@ -114,7 +114,8 @@ file_encoding
 Authors
 =======
 |  Copyright (c) 2013 Andrey Lebedev <andrey@lebedev.lt>
-|  Copyright (c) 2016 Alexander Gerasiov <gq@cs.msu.su>
+|  Copyright (c) 2016-2017 Alexander Gerasiov <gq@cs.msu.su>
+|  Copyright (c) 2017 Dmitry Pavlov <zeldigas@gmail.com>
 |
 
 This program is free software: you can redistribute it and/or modify
