@@ -125,5 +125,5 @@ class AlfabankPlugin(Plugin):
         parser.statement.currency = self.settings.get('currency')
         parser.statement.account_id = self.settings.get('account')
         parser.statement.bank_id = self.settings.get('bank', 'Alfabank')
-        parser.use_user_date = self.settings.get('user_date', 'true') == 'true'
+        parser.user_date = self.settings.get('user_date', 'true') == 'true'
         return parser
