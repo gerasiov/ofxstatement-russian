@@ -187,7 +187,7 @@ class SberBankStatementParser(StatementParser):
         return self.statement
 
 class SberBankPlugin(Plugin):
-    """ SberBank TXT (http://sbrf.ru)
+    """SberBank TXT (http://sbrf.ru)
     """
 
     def get_parser(self, fin):

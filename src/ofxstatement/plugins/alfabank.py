@@ -116,7 +116,7 @@ class AlfabankStatementParser(StatementParser):
 
 
 class AlfabankPlugin(Plugin):
-    """ AlfaBank CSV (https://www.alfabank.ru)
+    """AlfaBank CSV (https://www.alfabank.ru)
     """
 
     def get_parser(self, fin):

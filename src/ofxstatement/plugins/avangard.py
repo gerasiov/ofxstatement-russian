@@ -106,7 +106,7 @@ class AvangardStatementParser(StatementParser):
 
 
 class AvangardPlugin(Plugin):
-    """ Avangard Bank CSV (http://avangard.ru)
+    """Avangard Bank CSV (http://avangard.ru)
     """
 
     def get_parser(self, fin):

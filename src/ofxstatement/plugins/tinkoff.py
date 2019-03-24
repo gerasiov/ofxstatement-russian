@@ -108,7 +108,7 @@ class TinkoffStatementParser(StatementParser):
 
 
 class TinkoffPlugin(Plugin):
-    """ Tinkoff Bank CSV (http://tinkoff.ru)
+    """Tinkoff Bank CSV (http://tinkoff.ru)
     """
 
     def get_parser(self, fin):
