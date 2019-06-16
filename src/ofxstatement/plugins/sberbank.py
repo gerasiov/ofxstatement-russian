@@ -170,7 +170,7 @@ class SberBankStatementParser(StatementParser):
                 self.extractTransactionAppend)
 
         state = ParserState('end_balance', self)
-        state.addMatcher(u"^ОСТАТОК НА КОНЕЦ ПЕРИОДА:\s*(\d+\.\d{2})\+\s*$",
+        state.addMatcher(u"^ОСТАТОК НА КОНЕЦ ПЕРИОДА:\s*(\d+\.\d{2})\+?\s*$",
                 'table_header',
                 self.extractEndBalance)
 
