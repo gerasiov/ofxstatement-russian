@@ -122,7 +122,7 @@ class SberBankStatementParser(StatementParser):
         first = match.group(1)[:self.account_fl_len]
         second = match.group(1)[self.account_fl_len:]
         self.account_id += first
-        self.transaction.memo += second.strip()
+        self.transaction.memo += second
 
     def __init__(self, fin):
         self.statement = statement.Statement()
