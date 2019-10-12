@@ -15,6 +15,7 @@ Supported banks:
 * Tinkoff Bank (http://tinkoff.ru) plugin 'tinkoff'
 * SberBank (http://sbrf.ru) plugin 'sberbank'
 * AlfaBank (https://www.alfabank.ru) plugin 'alfabank'
+* VTB (https://www.vtb.ru) plugin 'vtb'
 
 
 Avangard
@@ -40,6 +41,11 @@ AlfaBank
 -------
 
 CSV statement for current account are supported
+
+VTB
+-------
+
+CSV statement for debit card is supported
 
 
 Plugin configuration parameters
@@ -110,6 +116,17 @@ user_date
 file_encoding
         cp1251 by default. No need to change in regular usage (download statement, then convert),
         but could be handy in case of some file processing that involves encoding change
+
+vtb
+--------
+
+bank
+        Bank id
+        (default is 'VTB')
+
+user_date
+        if 'true' then transaction date will be set to the date when transaction is created (so called user date)
+        rather then record date.
 
 Authors
 =======
