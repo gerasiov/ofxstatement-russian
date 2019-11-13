@@ -21,13 +21,14 @@ from ofxstatement import statement
 from datetime import datetime
 import csv
 
-#file format options
-av_delimiter=';'
-av_time_format='%d.%m.%Y %H:%M'
-av_encoding='cp1251'
-av_currency='RUB'
-av_fieldnames=['tr_time', 'debit', 'credit', 'type', 'op_time', 'card', 'currency_value', 'currency', 'MCC', 'description']
-av_type_map={
+# file format options
+av_delimiter = ';'
+av_time_format = '%d.%m.%Y %H:%M'
+av_encoding = 'cp1251'
+av_currency = 'RUB'
+av_fieldnames = ['tr_time', 'debit', 'credit', 'type', 'op_time', 'card', 'currency_value',
+                 'currency', 'MCC', 'description']
+av_type_map = {
     u"Зачисление": 'CREDIT',
     u"Покупка": 'PAYMENT',
     u"Типовой платеж": 'PAYMENT',
@@ -52,7 +53,8 @@ av_type_map={
     u"Наличные": 'ATM',
     u"Погашение овердрафта": None,
     u"Предоставление овердрафта": None,
-    }
+}
+
 
 def parse_type(type, amount):
     for filter in av_type_map.keys():
@@ -66,13 +68,11 @@ def parse_type(type, amount):
     elif amount < 0:
         result = 'CREDIT'
 
-    #print("Unknown type \"%s\", consider %s"%(type, result))
+    # print("Unknown type \"%s\", consider %s"%(type, result))
     return result
 
 
-
 class AvangardStatementParser(StatementParser):
-
     statement = None
 
     def __init__(self, fin):
@@ -85,19 +85,21 @@ class AvangardStatementParser(StatementParser):
     def parse_record(self, line):
         transaction = statement.StatementLine()
 
-        transaction.date = datetime.strptime(line[('op_time' if line['op_time'] else 'tr_time')], av_time_format)
+        transaction.date = datetime.strptime(line[('op_time' if line['op_time'] else 'tr_time')],
+                                             av_time_format)
 
-        transaction.amount = (float(line['debit']) if line['debit'] else 0) - (float(line['credit']) if line['credit'] else 0)
+        transaction.amount = (float(line['debit']) if line['debit'] else 0) - (
+            float(line['credit']) if line['credit'] else 0)
 
         transaction.trntype = parse_type(line['type'], transaction.amount)
 
         transaction.memo = line['description'] if line['description'] else line['type']
 
         if line['MCC']:
-            transaction.memo = "%s, %s"%(transaction.memo, line['MCC'])
+            transaction.memo = "%s, %s" % (transaction.memo, line['MCC'])
 
         if line['card']:
-            transaction.memo = "%s, %s"%(transaction.memo, line['card'])
+            transaction.memo = "%s, %s" % (transaction.memo, line['card'])
 
         if transaction.trntype:
             return transaction

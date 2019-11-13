@@ -21,12 +21,13 @@ from ofxstatement import statement
 from datetime import datetime
 import csv
 
-#file format options
-t_delimiter=';'
-t_time_format='%d.%m.%Y %H:%M:%S'
-t_encoding='cp1251'
-t_fieldnames=['op_time', 'tr_time', 'card', 'status', 'op_amount', 'op_currency', 'amount', 'currency', 'cashback', 'category', 'MCC', 'description', 'bonus']
-t_type_map={
+# file format options
+t_delimiter = ';'
+t_time_format = '%d.%m.%Y %H:%M:%S'
+t_encoding = 'cp1251'
+t_fieldnames = ['op_time', 'tr_time', 'card', 'status', 'op_amount', 'op_currency', 'amount',
+                'currency', 'cashback', 'category', 'MCC', 'description', 'bonus']
+t_type_map = {
     u"Капитализация": 'DIV',
     u"Вознаграждение за операции покупок": 'DIV',
     u"Пополнение. Тинькофф Банк. Бонус": 'DIV',
@@ -37,10 +38,10 @@ t_type_map={
     u"Пополнение": 'XFER',
     u"На счет в другом банке": 'XFER',
     u"Перевод c карты другого банка": 'XFER',
-    u"На счет в другом банке": 'XFER',
     u"Изъятие вклада при закрытии.": 'XFER',
     u"Внешний банковский перевод": 'XFER',
-    }
+}
+
 
 def parse_type(type, amount):
     for filter in t_type_map.keys():
@@ -54,13 +55,11 @@ def parse_type(type, amount):
     elif amount < 0:
         result = 'CREDIT'
 
-    #print("Unknown type \"%s\", consider %s"%(type, result))
+    # print("Unknown type \"%s\", consider %s"%(type, result))
     return result
 
 
-
 class TinkoffStatementParser(StatementParser):
-
     statement = None
 
     def __init__(self, fin):
@@ -77,14 +76,16 @@ class TinkoffStatementParser(StatementParser):
         transaction = statement.StatementLine()
 
         if not line['status'] == 'OK':
-            print("Notice: Skipping line %d: Transaction time %s status is %s."%(self.cur_record, line['op_time'], line['status']))
+            print("Notice: Skipping line %d: Transaction time %s status is %s." % (
+            self.cur_record, line['op_time'], line['status']))
             return None
 
         if not self.statement.currency:
             self.statement.currency = line['currency']
 
         if not line['currency'] == self.statement.currency:
-            print("Transaction %s currency '%s' differ from account currency '%s'."%(line['op_time'], line['currency'], self.statement.currency))
+            print("Transaction %s currency '%s' differ from account currency '%s'." % (
+            line['op_time'], line['currency'], self.statement.currency))
             return None
 
         transaction.date = datetime.strptime(line['op_time'], t_time_format)
@@ -93,13 +94,13 @@ class TinkoffStatementParser(StatementParser):
 
         transaction.trntype = parse_type(line['description'], transaction.amount)
 
-        transaction.memo = "%s: %s"%(line['category'], line['description'])
+        transaction.memo = "%s: %s" % (line['category'], line['description'])
 
         if line['MCC']:
-            transaction.memo = "%s, %s"%(transaction.memo, line['MCC'])
+            transaction.memo = "%s, %s" % (transaction.memo, line['MCC'])
 
         if line['card']:
-            transaction.memo = "%s, %s"%(transaction.memo, line['card'])
+            transaction.memo = "%s, %s" % (transaction.memo, line['card'])
 
         if transaction.trntype:
             return transaction
