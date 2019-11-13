@@ -1,4 +1,4 @@
-#    SberBank (http://sbrf.ru) plugin for ofxstatement
+#    SberBankTxt (http://sbrf.ru) plugin for ofxstatement
 #
 #    Copyright 2013 Andrey Lebedev <andrey@lebedev.lt>
 #    Copyright 2016 Alexander Gerasiov <gq@cs.msu.su>
@@ -53,7 +53,7 @@ class ParserState:
         return string
 
 
-class SberBankStatementParser(StatementParser):
+class SberBankTxtStatementParser(StatementParser):
     statement = None
 
     transaction = None
@@ -186,13 +186,13 @@ class SberBankStatementParser(StatementParser):
         return self.statement
 
 
-class SberBankPlugin(Plugin):
+class SberBankTxtPlugin(Plugin):
     """SberBank TXT (http://sbrf.ru)
     """
 
     def get_parser(self, fin):
         f = open(fin, 'r', encoding=sb_encoding)
-        parser = SberBankStatementParser(f)
+        parser = SberBankTxtStatementParser(f)
         parser.statement.currency = self.settings.get('currency', None)
         parser.statement.account_id = self.settings.get('account', None)
         parser.statement.bank_id = self.settings.get('bank', 'SberBank')

@@ -35,7 +35,7 @@ setup(name='ofxstatement-russian',
                 [
                 'avangard = ofxstatement.plugins.avangard:AvangardPlugin',
                 'tinkoff = ofxstatement.plugins.tinkoff:TinkoffPlugin',
-                'sberbank = ofxstatement.plugins.sberbank:SberBankPlugin',
+                'sberbank_txt = ofxstatement.plugins.sberbank_txt:SberBankTxtPlugin',
                 'alfabank = ofxstatement.plugins.alfabank:AlfabankPlugin',
                 'vtb = ofxstatement.plugins.vtb:VtbPlugin',
                 ]

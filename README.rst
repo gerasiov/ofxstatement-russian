@@ -17,7 +17,7 @@ Supported banks:
 
 * Avangard Bank (http://avangard.ru) plugin 'avangard'
 * Tinkoff Bank (http://tinkoff.ru) plugin 'tinkoff'
-* SberBank (http://sbrf.ru) plugin 'sberbank'
+* SberBank (http://sbrf.ru) plugin 'sberbank_txt'
 * AlfaBank (https://www.alfabank.ru) plugin 'alfabank'
 * VTB (https://www.vtb.ru) plugin 'vtb'
 
@@ -32,10 +32,10 @@ Tinkoff
 
 CSV statement for credit, debit and saving account are supported.
 
-SberBank
+SberBankTxt
 --------
 
-TXT statement (available via "request statement by e-mail" function) for debit card is supported.
+Legacy TXT statement (available via "request statement by e-mail" function) for debit card is supported.
 
 AlfaBank
 -------
@@ -79,7 +79,7 @@ currency
         Currency
         (if not set, will be extracted from the first record)
 
-sberbank
+sberbank_txt
 --------
 
 bank

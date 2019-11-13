@@ -2,14 +2,14 @@ import os
 import datetime
 
 from ofxstatement.ui import UI
-from ofxstatement.plugins.sberbank import SberBankPlugin
+from ofxstatement.plugins.sberbank_txt import SberBankTxtPlugin
 
 
 SAMPLES_DIR = os.path.join(os.path.dirname(__file__), 'samples')
 
 
 def test_parse_maestro():
-    plugin = SberBankPlugin(UI(), {})
+    plugin = SberBankTxtPlugin(UI(), {})
     s = plugin.get_parser(os.path.join(SAMPLES_DIR, 'sberbank_maestro.txt')).parse()
 
     assert s is not None
@@ -33,7 +33,7 @@ def test_parse_maestro():
 
 
 def test_parse_visa():
-    plugin = SberBankPlugin(UI(), {})
+    plugin = SberBankTxtPlugin(UI(), {})
     s = plugin.get_parser(os.path.join(SAMPLES_DIR, 'sberbank_visa.txt')).parse()
 
     assert s is not None
