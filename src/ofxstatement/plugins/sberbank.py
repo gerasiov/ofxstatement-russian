@@ -132,45 +132,45 @@ class SberBankStatementParser(StatementParser):
         self.currentState = 'init'
 
         state = ParserState('init', self)
-        state.addMatcher(u"^.*ВАЛЮТА СЧЕТА.*$", 'currency')
+        state.addMatcher(r"^.*ВАЛЮТА СЧЕТА.*$", 'currency')
 
         state = ParserState('currency', self)
-        state.addMatcher("^\s*(\w{3})\s*$",
+        state.addMatcher(r"^\s*(\w{3})\s*$",
                          'begin_balance',
                          self.extractCurrency)
 
         state = ParserState('begin_balance', self)
-        state.addMatcher(u"^ОСТАТОК НА НАЧАЛО ПЕРИОДА:\s*(\d+\.\d{2})(\+)?\s*$",
+        state.addMatcher(r"^ОСТАТОК НА НАЧАЛО ПЕРИОДА:\s*(\d+\.\d{2})(\+)?\s*$",
                          'table_header',
                          self.extractBeginBalance)
 
         state = ParserState('table_header', self)
-        state.addMatcher("^[-+]{80,}$", 'table_header2')
+        state.addMatcher(r"^[-+]{80,}$", 'table_header2')
 
         state = ParserState('table_header2', self)
-        state.addMatcher("^[-+]{80,}$", 'transaction')
+        state.addMatcher(r"^[-+]{80,}$", 'transaction')
 
         state = ParserState('transaction', self)
-        state.addMatcher("^[-+]{80,}$", 'end_balance')
+        state.addMatcher(r"^[-+]{80,}$", 'end_balance')
         state.addMatcher(
-            u"^(.*)\s*(\d{2}[А-Я]{3})\s+(\d{2}[А-Я]{3}\d{2})\s+\d{6}\s+(.*)\s\w{3}\s+\d*\.\d{2}\s+(\d*\.\d{2})(CR)?\s*$",
+            r"^(.*)\s*(\d{2}[А-Я]{3})\s+(\d{2}[А-Я]{3}\d{2})\s+\d{6}\s+(.*)\s\w{3}\s+\d*\.\d{2}\s+(\d*\.\d{2})(CR)?\s*$",
             None,
             self.extractTransaction)
         state.addMatcher(
-            u"^(.*)\s*(\d{2}[А-Я]{3})\s+(\d{2}[А-Я]{3}\d{2})\s+\d{6}\s+(КОМИССИЯ)\s+(\d*\.\d{2})(CR)?\s*$",
+            r"^(.*)\s*(\d{2}[А-Я]{3})\s+(\d{2}[А-Я]{3}\d{2})\s+\d{6}\s+(КОМИССИЯ)\s+(\d*\.\d{2})(CR)?\s*$",
             None,
             self.extractTransaction)
         state.addMatcher(
-            u"^(.*)\s*(\d{2}[А-Я]{3})\s+(\d{2}[А-Я]{3}\d{2})\s+\d{6}\s+(.*)\s(\d*\.\d{2})(CR)?\s*$",
+            r"^(.*)\s*(\d{2}[А-Я]{3})\s+(\d{2}[А-Я]{3}\d{2})\s+\d{6}\s+(.*)\s(\d*\.\d{2})(CR)?\s*$",
             None,
             self.extractTransaction)
-        state.addMatcher(u".*ИТОГО ПО.*")
-        state.addMatcher(u"^(.+)\s*$",
+        state.addMatcher(r".*ИТОГО ПО.*")
+        state.addMatcher(r"^(.+)\s*$",
                          None,
                          self.extractTransactionAppend)
 
         state = ParserState('end_balance', self)
-        state.addMatcher(u"^ОСТАТОК НА КОНЕЦ ПЕРИОДА:\s*(\d+\.\d{2})\+?\s*$",
+        state.addMatcher(r"^ОСТАТОК НА КОНЕЦ ПЕРИОДА:\s*(\d+\.\d{2})\+?\s*$",
                          'table_header',
                          self.extractEndBalance)
 
