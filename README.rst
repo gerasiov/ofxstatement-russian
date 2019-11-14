@@ -9,6 +9,10 @@ structure, that is then formatted into an OFX file.
 
 `ofxstatement-russian`_ provides some Russian banks plugins for ofxstatement.
 
+
+.. _ofxstatement: https://github.com/kedder/ofxstatement
+.. _ofxstatement-russian: https://github.com/gerasiov/ofxstatement-russian
+
 Supported banks:
 
 * Avangard Bank (http://avangard.ru) plugin 'avangard'
@@ -32,10 +36,6 @@ SberBank
 --------
 
 TXT statement (available via "request statement by e-mail" function) for debit card is supported.
-
-.. _ofxstatement: https://github.com/kedder/ofxstatement
-.. _ofxstatement-russian: https://github.com/gerasiov/ofxstatement-russian
-
 
 AlfaBank
 -------
