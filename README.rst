@@ -17,7 +17,7 @@ Supported banks:
 
 * Avangard Bank (http://avangard.ru) plugin 'avangard'
 * Tinkoff Bank (http://tinkoff.ru) plugin 'tinkoff'
-* SberBank (http://sbrf.ru) plugin 'sberbank_txt'
+* SberBank (http://sbrf.ru) plugins 'sberbank_csv', 'sberbank_txt'
 * AlfaBank (https://www.alfabank.ru) plugin 'alfabank'
 * VTB (https://www.vtb.ru) plugin 'vtb'
 
@@ -31,6 +31,11 @@ Tinkoff
 -------
 
 CSV statement for credit, debit and saving account are supported.
+
+SberBankCSV
+--------
+
+CSV statement (available via "request statement by e-mail as Excel sheet" function).
 
 SberBankTxt
 --------

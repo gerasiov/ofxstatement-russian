@@ -32,13 +32,14 @@ setup(name='ofxstatement-russian',
       namespace_packages=["ofxstatement", "ofxstatement.plugins"],
       entry_points={
           'ofxstatement':
-                [
-                'avangard = ofxstatement.plugins.avangard:AvangardPlugin',
-                'tinkoff = ofxstatement.plugins.tinkoff:TinkoffPlugin',
-                'sberbank_txt = ofxstatement.plugins.sberbank_txt:SberBankTxtPlugin',
-                'alfabank = ofxstatement.plugins.alfabank:AlfabankPlugin',
-                'vtb = ofxstatement.plugins.vtb:VtbPlugin',
-                ]
+              [
+                  'avangard = ofxstatement.plugins.avangard:AvangardPlugin',
+                  'tinkoff = ofxstatement.plugins.tinkoff:TinkoffPlugin',
+                  'sberbank_csv = ofxstatement.plugins.sberbank_csv:SberBankCSVPlugin',
+                  'sberbank_txt = ofxstatement.plugins.sberbank_txt:SberBankTxtPlugin',
+                  'alfabank = ofxstatement.plugins.alfabank:AlfabankPlugin',
+                  'vtb = ofxstatement.plugins.vtb:VtbPlugin',
+              ]
           },
       install_requires=['ofxstatement'],
       test_suite="ofxstatement.plugins.tests",
