@@ -1,7 +1,8 @@
-#    Avangard Bank (http://avangard.ru) plugin for ofxstatement
+#    Avangard Bank (https://www.avangard.ru/) plugin for ofxstatement
 #
 #    Copyright 2013 Andrey Lebedev <andrey@lebedev.lt>
 #    Copyright 2016 Alexander Gerasiov <gq@cs.msu.su>
+#    Copyright 2020 Dmitry Pavlov <zeldigas@gmail.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License version 3 as
@@ -76,6 +77,7 @@ class AvangardStatementParser(StatementParser):
     statement = None
 
     def __init__(self, fin):
+        super().__init__()
         self.statement = statement.Statement()
         self.fin = fin
 
@@ -100,6 +102,9 @@ class AvangardStatementParser(StatementParser):
 
         if line['card']:
             transaction.memo = "%s, %s" % (transaction.memo, line['card'])
+
+        # as csv file does not contain explicit id of transaction, generating artificial one
+        transaction.id = statement.generate_transaction_id(transaction)
 
         if transaction.trntype:
             return transaction

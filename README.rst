@@ -1,6 +1,6 @@
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Russian banks plugins for ofxstatement
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `ofxstatement`_ is a tool to convert proprietary bank statement to OFX format,
 suitable for importing to GnuCash. Plugin for ofxstatement parses a
@@ -25,12 +25,12 @@ Supported banks:
 Avangard
 --------
 
-CSV statements for credit, debit or current account are supported.
+CSV statements for credit, debit or current account.
 
 Tinkoff
 -------
 
-CSV statement for credit, debit and saving account are supported.
+CSV statement for credit, debit and saving account.
 
 SberBankCSV
 --------
@@ -40,17 +40,17 @@ CSV statement (available via "request statement by e-mail as Excel sheet" functi
 SberBankTxt
 --------
 
-Legacy TXT statement (available via "request statement by e-mail" function) for debit card is supported.
+Legacy TXT statement (available via "request statement by e-mail" function) for debit card.
 
 AlfaBank
 -------
 
-CSV statement for current account are supported
+CSV statement for current account.
 
 VTB
 -------
 
-CSV statement for debit card is supported
+CSV statement for debit card.
 
 
 Plugin configuration parameters
@@ -132,6 +132,35 @@ bank
 user_date
         if 'true' then transaction date will be set to the date when transaction is created (so called user date)
         rather then record date.
+
+Development
+===========
+
+Project is targeting python 3 (3.6 for sure as current widespread version) and
+pytest is used for testing.
+
+Development setup is simple:
+
+1. Create virtual environment and activate it
+.. code-block:: bash
+
+    virtualenv .venv
+
+    # activate it according to your OS specifics
+
+2. Install dependencies. It will download everything you need to develop and write tests
+.. code-block:: bash
+
+    pip install -r requirements.txt
+
+    python setup.py develop
+
+3. Run tests using pytest
+.. code-block:: bash
+
+    pytest
+
+
 
 Authors
 =======

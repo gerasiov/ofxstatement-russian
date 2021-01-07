@@ -1,8 +1,24 @@
+#    VTB (https://www.vtb.ru/) plugin for ofxstatement
+#
+#    Copyright 2019 Rashit Azizbaev <syndicut@gmail.com>
+#    Copyright 2020 Dmitry Pavlov <zeldigas@gmail.com>
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License version 3 as
+#    published by the Free Software Foundation.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from ofxstatement.parser import StatementParser
 from ofxstatement.plugin import Plugin
 from ofxstatement import statement
 
-import logging
 import csv
 from decimal import Decimal
 from datetime import datetime
@@ -58,6 +74,7 @@ class VtbStatementParser(StatementParser):
     statement = None
 
     def __init__(self, fin):
+        super().__init__()
         self.statement = statement.Statement()
         self.fin = fin
         self.user_date = False
@@ -88,9 +105,9 @@ class VtbStatementParser(StatementParser):
         if self.statement.currency is None:
             self.statement.currency = balance_info_item['currency']
 
-        self.statement.end_balance = self.parse_decimal(balance_info_item['end_balance'])
-        self.statement.start_balance = self.statement.end_balance - sum((self.parse_decimal(balance_info_item['income']),
-                                                                         self.parse_decimal(balance_info_item['withdrawl'])))
+        self.statement.end_balance = self._parse_decimal(balance_info_item['end_balance'])
+        self.statement.start_balance = self.statement.end_balance - sum((self._parse_decimal(balance_info_item['income']),
+                                                                         self._parse_decimal(balance_info_item['withdrawl'])))
 
         self.skip_lines(balance_info_skip_lines)
 
@@ -114,9 +131,15 @@ class VtbStatementParser(StatementParser):
             else:
                 transaction.date = self.parse_datetime(line['processing_date'])
         transaction.memo = line['reason']
-        transaction.amount = self.parse_decimal(line['account_amount'])
+        transaction.amount = self._parse_decimal(line['account_amount'])
         transaction.payee = self.parse_payee(line['reason'])
         transaction.trntype = self.parse_type(transaction.amount)
+
+        # as csv file does not contain explicit id of transaction, generating artificial one
+        # using operation date as main date in all cases
+        transaction.id = statement.generate_transaction_id(statement.StatementLine(
+            date=transaction.date_user, memo=transaction.memo, amount=transaction.amount
+        ))
 
         return transaction
 
@@ -146,7 +169,7 @@ class VtbStatementParser(StatementParser):
             next(self.fin)
 
     @staticmethod
-    def parse_decimal(value):
+    def _parse_decimal(value):
         # some plugins pass localised numbers, clean them up
         return Decimal(value.replace(",", ".").replace(" ", ""))
 

@@ -1,7 +1,8 @@
-#    Tinkoff Bank (http://tinkoff.ru) plugin for ofxstatement
+#    Tinkoff Bank (https://tinkoff.ru) plugin for ofxstatement
 #
 #    Copyright 2013 Andrey Lebedev <andrey@lebedev.lt>
 #    Copyright 2016 Alexander Gerasiov <gq@cs.msu.su>
+#    Copyright 2020 Dmitry Pavlov <zeldigas@gmail.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License version 3 as
@@ -15,11 +16,14 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import csv
+from datetime import datetime
+from decimal import Decimal
+
 from ofxstatement.parser import StatementParser
 from ofxstatement.plugin import Plugin
 from ofxstatement import statement
-from datetime import datetime
-import csv
+
 
 # file format options
 t_delimiter = ';'
@@ -63,6 +67,7 @@ class TinkoffStatementParser(StatementParser):
     statement = None
 
     def __init__(self, fin):
+        super().__init__()
         self.statement = statement.Statement()
         self.fin = fin
         # Skip 1st row with column's headers
@@ -77,7 +82,7 @@ class TinkoffStatementParser(StatementParser):
 
         if not line['status'] == 'OK':
             print("Notice: Skipping line %d: Transaction time %s status is %s." % (
-            self.cur_record, line['op_time'], line['status']))
+                self.cur_record, line['op_time'], line['status']))
             return None
 
         if not self.statement.currency:
@@ -85,27 +90,33 @@ class TinkoffStatementParser(StatementParser):
 
         if not line['currency'] == self.statement.currency:
             print("Transaction %s currency '%s' differ from account currency '%s'." % (
-            line['op_time'], line['currency'], self.statement.currency))
+                line['op_time'], line['currency'], self.statement.currency))
             return None
 
         transaction.date = datetime.strptime(line['op_time'], t_time_format)
 
-        transaction.amount = float(line['amount'].replace(',', '.'))
+        transaction.amount = Decimal(line['amount'].replace(',', '.'))
 
         transaction.trntype = parse_type(line['description'], transaction.amount)
 
         transaction.memo = "%s: %s" % (line['category'], line['description'])
 
-        if line['MCC']:
-            transaction.memo = "%s, %s" % (transaction.memo, line['MCC'])
+        self._append_to_memo(transaction, line, 'MCC')
+        self._append_to_memo(transaction, line, 'card')
 
-        if line['card']:
-            transaction.memo = "%s, %s" % (transaction.memo, line['card'])
+        # as csv file does not contain explicit id of transaction, generating artificial one
+        transaction.id = statement.generate_transaction_id(transaction)
 
         if transaction.trntype:
             return transaction
         else:
             return None
+
+    @staticmethod
+    def _append_to_memo(transaction, line, field):
+        if line[field]:
+            transaction.memo = "%s, %s" % (transaction.memo, line[field])
+
 
 
 class TinkoffPlugin(Plugin):

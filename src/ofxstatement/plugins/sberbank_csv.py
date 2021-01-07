@@ -1,7 +1,8 @@
-#    SberBank (http://sberbank.ru) CSV plugin for ofxstatement
+#    SberBank (https://www.sberbank.ru/) CSV plugin for ofxstatement
 #
 #    Copyright 2013 Andrey Lebedev <andrey@lebedev.lt>
 #    Copyright 2016 Alexander Gerasiov <gq@cs.msu.su>
+#    Copyright 2020 Dmitry Pavlov <zeldigas@gmail.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License version 3 as
@@ -15,11 +16,13 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import csv
+from decimal import Decimal
+
 from ofxstatement.parser import StatementParser
 from ofxstatement.plugin import Plugin
 from ofxstatement import statement
 from datetime import datetime
-import csv
 
 # file format options
 SB_DELIMITER = ';'
@@ -33,6 +36,7 @@ class SberBankCSVStatementParser(StatementParser):
     statement = None
 
     def __init__(self, fin):
+        super().__init__()
         self.statement = statement.Statement()
         self.fin = fin
         # Skip 1st row with column's headers
@@ -51,12 +55,15 @@ class SberBankCSVStatementParser(StatementParser):
         transaction.date = datetime.strptime(line['date'], SD_TIME_FORMAT)
         transaction.date_user = datetime.strptime(line['date_user'], SD_TIME_FORMAT)
 
-        transaction.amount = float(line['amount'].replace(',', '.'))
+        transaction.amount = Decimal(line['amount'].replace(',', '.'))
 
         transaction.trntype = 'DEBIT' if transaction.amount > 0 else 'CREDIT'
 
         transaction.memo = ', '.join(line[f] for f in
                                      ('description', 'op_city', 'op_country', 'op_type') if line[f])
+
+        # as csv file does not contain explicit id of transaction, generating artificial one
+        transaction.id = statement.generate_transaction_id(transaction)
 
         return transaction
 

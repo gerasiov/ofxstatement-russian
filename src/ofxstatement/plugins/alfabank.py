@@ -1,7 +1,7 @@
 #    AlfaBank (https://www.alfabank.ru) plugin for ofxstatement
 #
 #    Copyright 2017 Alexander Gerasiov <gq@cs.msu.su>
-#    Copyright 2017 Dmitry Pavlov <zeldigas@gmail.com>
+#    Copyright 2017,2020 Dmitry Pavlov <zeldigas@gmail.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License version 3 as
@@ -50,10 +50,10 @@ def parse_type(type, amount):
 
 
 class AlfabankStatementParser(StatementParser):
-
     statement = None
 
     def __init__(self, fin):
+        super().__init__()
         self.date_format = '%d.%m.%y'
         self.statement = statement.Statement()
         self.fin = fin
@@ -76,7 +76,7 @@ class AlfabankStatementParser(StatementParser):
 
         if not line['currency'] == self.statement.currency:
             print("Transaction %s currency '%s' differ from account currency '%s'." % (
-            line['op_time'], line['currency'], self.statement.currency))
+                line['op_time'], line['currency'], self.statement.currency))
             return None
 
         transaction.date = self.parse_datetime(line['op_time'])
@@ -107,7 +107,7 @@ class AlfabankStatementParser(StatementParser):
 
     @staticmethod
     def try_find_user_date(param):
-        date_pattern = '\d{2}\.\d{2}\.\d{2}'
+        date_pattern = '\\d{2}\\.\\d{2}\\.\\d{2}'
         m = re.search('{0} ({0})'.format(date_pattern), param)
         if m:
             return m.group(1)

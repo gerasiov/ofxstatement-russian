@@ -1,4 +1,4 @@
-#    SberBankTxt (http://sbrf.ru) plugin for ofxstatement
+#    SberBankTxt (https://www.sberbank.ru/) plugin for ofxstatement
 #
 #    Copyright 2013 Andrey Lebedev <andrey@lebedev.lt>
 #    Copyright 2016 Alexander Gerasiov <gq@cs.msu.su>
